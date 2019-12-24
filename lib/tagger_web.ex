@@ -1,9 +1,9 @@
 defmodule TaggerWeb do
   @moduledoc """
-  The entrypoint for defining your web interface, such
+  The entrypoint for defining our web interface, such
   as controllers, views, channels and so on.
 
-  This can be used in your application as:
+  This can be used as:
 
       use TaggerWeb, :controller
       use TaggerWeb, :view
@@ -23,6 +23,7 @@ defmodule TaggerWeb do
 
       import Plug.Conn
       import TaggerWeb.Gettext
+
       alias TaggerWeb.Router.Helpers, as: Routes
     end
   end
@@ -33,11 +34,11 @@ defmodule TaggerWeb do
         root: "lib/tagger_web/templates",
         namespace: TaggerWeb
 
-      # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
       import TaggerWeb.ErrorHelpers
       import TaggerWeb.Gettext
+
       alias TaggerWeb.Router.Helpers, as: Routes
     end
   end
@@ -45,6 +46,7 @@ defmodule TaggerWeb do
   def router do
     quote do
       use Phoenix.Router
+
       import Plug.Conn
       import Phoenix.Controller
     end
@@ -53,12 +55,13 @@ defmodule TaggerWeb do
   def channel do
     quote do
       use Phoenix.Channel
+
       import TaggerWeb.Gettext
     end
   end
 
   @doc """
-  When used, dispatch to the appropriate controller/view/etc.
+  When used, adds the appropriate utilities to the module.
   """
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])

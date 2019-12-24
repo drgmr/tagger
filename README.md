@@ -1,19 +1,28 @@
 # Tagger
 
-To start your Phoenix server:
+A small application to add tags to your GitHub repositories.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server`
+## Tooling requirements
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+You'll need a recent version of `docker` and `docker-compose` - more information available on the official documentation:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- [Installing Docker](https://docs.docker.com/install/)
+- [Installing docker-compose](https://docs.docker.com/compose/install/)
 
-## Learn more
+## Running the development server
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+After installing the tooling requirements, do the following:
+
+- Run `docker-compose up` (or `docker-compose up -d` to detach from Postgres' logs)
+- Attach a terminal session to the server container with `docker exec -it tagger-server bash`
+- `cd` into `/opt/app`
+- Install dependencies with `mix deps.get`
+- Create and migrate your database with `mix ecto.setup`
+- Start Phoenix with `iex -S mix phx.server`
+- Enjoy your interactive session
+
+Direct access for usage with your preffered tools will be available on:
+
+- Server app's endpoint: `localhost:4000`
+- Database server: `localhost:5678`
+

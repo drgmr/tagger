@@ -5,7 +5,7 @@ config :tagger, Tagger.Repo,
   username: "postgres",
   password: "postgres",
   database: "tagger_dev",
-  hostname: "localhost",
+  hostname: "tagger-db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

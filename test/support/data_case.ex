@@ -16,6 +16,8 @@ defmodule Tagger.DataCase do
 
   use ExUnit.CaseTemplate
 
+  alias Ecto.Adapters.SQL.Sandbox
+
   using do
     quote do
       alias Tagger.Repo
@@ -29,10 +31,10 @@ defmodule Tagger.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tagger.Repo)
+    :ok = Sandbox.checkout(Tagger.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Tagger.Repo, {:shared, self()})
+      Sandbox.mode(Tagger.Repo, {:shared, self()})
     end
 
     :ok

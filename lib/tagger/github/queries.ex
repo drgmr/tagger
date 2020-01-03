@@ -12,7 +12,7 @@ defmodule Tagger.Github.Queries do
             name
             description
             url
-            languages(first: 1) {
+            languages(first: 10) {
               nodes {
                 name
               }

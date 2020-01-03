@@ -24,6 +24,8 @@ defmodule TaggerWeb do
       import Plug.Conn
       import TaggerWeb.Gettext
 
+      use BlueBird.Controller
+
       alias TaggerWeb.Router.Helpers, as: Routes
     end
   end

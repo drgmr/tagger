@@ -21,11 +21,24 @@ defmodule Tagger.MixProject do
     ]
   end
 
+  def blue_bird_info do
+    [
+      host: "http://localhost:4000",
+      title: "Tagger API",
+      description: """
+      Tagger is a small application that tracks tags for GitHub repositories.
+
+      Read the included repository documentation for instructions.
+      """
+    ]
+  end
+
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
     [
+      {:blue_bird, "~> 0.4.0"},
       {:credo, "~> 1.1"},
       {:ecto_sql, "~> 3.1"},
       {:ex_machina, "~> 2.3", only: :test},

@@ -7,5 +7,9 @@ defmodule TaggerWeb.Router do
 
   scope "/api", TaggerWeb do
     pipe_through :api
+
+    scope "/repositories" do
+      resources "/", RepositoryController, only: [:index]
+    end
   end
 end

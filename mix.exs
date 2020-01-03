@@ -28,6 +28,7 @@ defmodule Tagger.MixProject do
     [
       {:credo, "~> 1.1"},
       {:ecto_sql, "~> 3.1"},
+      {:ex_machina, "~> 2.3", only: :test},
       {:gettext, "~> 0.11"},
       {:hackney, "~> 1.15"},
       {:jason, "~> 1.0"},

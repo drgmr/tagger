@@ -27,6 +27,7 @@ defmodule Tagger.DataCase do
       import Ecto.Query
 
       import Tagger.DataCase
+      import Tagger.Factory
     end
   end
 

@@ -7,12 +7,12 @@ defmodule Tagger.SourceControl do
   alias Tagger.SourceControl.Repository
 
   def process_repositories(repositories),
-    do: Enum.reduce_while(repositories, [], &process_repository/2)
+    do: Enum.reduce_while(repositories, {:ok, []}, &process_repository/2)
 
-  def process_repository(repository_data, list) do
+  def process_repository(repository_data, {:ok, list}) do
     case upsert_repository(repository_data) do
       {:ok, repository} ->
-        {:cont, [repository | list]}
+        {:cont, {:ok, [repository | list]}}
 
       {:error, _reason} = result ->
         {:halt, result}

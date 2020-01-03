@@ -49,7 +49,7 @@ defmodule Tagger.SourceControlTest do
 
       data = build_data([@new_repository_data, @existing_repository_data])
 
-      assert results = SourceControl.process_repositories(data)
+      assert {:ok, results} = SourceControl.process_repositories(data)
 
       assert Enum.count(results) == 2
 
@@ -70,7 +70,7 @@ defmodule Tagger.SourceControlTest do
 
       data = build_data([@updated_repository_data])
 
-      assert results = SourceControl.process_repositories(data)
+      assert {:ok, results} = SourceControl.process_repositories(data)
 
       assert Enum.count(results) == 1
 

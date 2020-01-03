@@ -16,12 +16,11 @@ defmodule Tagger.Github.Mapper do
   defp to_repository_params(data) do
     base_map = Map.take(data, ["id", "name", "url", "description"])
 
-    language =
+    languages =
       data
       |> get_in(["languages", "nodes"])
-      |> List.first()
-      |> Map.get("name")
+      |> Enum.map(&Map.get(&1, "name"))
 
-    Map.put(base_map, "language", language)
+    Map.put(base_map, "languages", languages)
   end
 end

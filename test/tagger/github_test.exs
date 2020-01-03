@@ -43,7 +43,7 @@ defmodule Tagger.GithubTest do
         assert repository[field] == @example_repository[field]
       end
 
-      assert repository["language"] == @expected_language
+      assert repository["languages"] == [@expected_language]
     end
   end
 end

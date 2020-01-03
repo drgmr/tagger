@@ -7,14 +7,14 @@ defmodule Tagger.SourceControl.Repository do
 
   import Ecto.Changeset
 
-  @required_fields [:id, :name, :description, :url, :language]
+  @required_fields [:id, :name, :description, :url, :languages]
   @fields @required_fields
 
   @primary_key {:id, :string, autogenerate: false}
   @foreign_key_type :string
   schema "repositories" do
     field :description, :string
-    field :language, :string
+    field :languages, {:array, :string}
     field :name, :string
     field :url, :string
 

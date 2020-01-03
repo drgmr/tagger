@@ -8,7 +8,7 @@ defmodule Tagger.Github.MapperTest do
     "name" => "Some Repo",
     "url" => "https://github.com/some_user/some-repo",
     "description" => "It's a cool Repo.",
-    "language" => "Purescript"
+    "languages" => ["Purescript"]
   }
 
   @languages_data %{
@@ -25,7 +25,7 @@ defmodule Tagger.Github.MapperTest do
         "starredRepositories" => %{
           "nodes" => [
             @expected_result
-            |> Map.drop(["language"])
+            |> Map.drop(["languages"])
             |> Map.put("languages", @languages_data)
           ]
         }
@@ -37,7 +37,7 @@ defmodule Tagger.Github.MapperTest do
     test "it retrieves data from the correct structure" do
       assert [result] = Mapper.to_repository_listing(@example_response)
 
-      for field <- ["id", "name", "url", "description", "language"] do
+      for field <- ["id", "name", "url", "description", "languages"] do
         assert result[field] == @expected_result[field]
       end
     end

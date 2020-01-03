@@ -6,7 +6,7 @@ defmodule Tagger.SourceControl.RepositoryTest do
   @valid_attributes %{
     "id" => "SOME_EXTERNAL_ID",
     "description" => "Some Cool Repository",
-    "language" => "PureScript",
+    "languages" => ["PureScript", "Dockerfile"],
     "name" => "some-cool-repository",
     "url" => "https://github.com/some_user/some-cool-repository"
   }
@@ -22,7 +22,7 @@ defmodule Tagger.SourceControl.RepositoryTest do
       assert errors_on(changeset) == %{
                id: ["can't be blank"],
                description: ["can't be blank"],
-               language: ["can't be blank"],
+               languages: ["can't be blank"],
                name: ["can't be blank"],
                url: ["can't be blank"]
              }

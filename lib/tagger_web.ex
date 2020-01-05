@@ -20,6 +20,7 @@ defmodule TaggerWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: TaggerWeb
+      use PhoenixSwagger
 
       import Plug.Conn
       import TaggerWeb.Gettext

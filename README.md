@@ -46,5 +46,3 @@ Direct access for usage with your preffered tools will be available on:
 - There's no paging support in place for browsing repositories yet
 - Error handling is not ideal at the Web API level. This still needs a better mapping of possible errors with proper specs - then the fallback controller should be able to handle with more precision each error case.
 - There's some slight duplication of code - building better testing facilities would fix that.
-- Bluebird is not the best documentation tool since it makes you copy and mix router and controller data if you wan to use all of it's metadata - but the concept of documenting by tests is great.
-- Instructions + NodeJS support on Docker setup is missing. Short version: `npm i -g aglio` / `mix test` / `mix bird.gen.docs`.

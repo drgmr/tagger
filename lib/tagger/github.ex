@@ -11,9 +11,8 @@ defmodule Tagger.Github do
 
   def get_starred_repositories(username) do
     with query_params <- Queries.starred_repositories(username),
-         {:ok, response} <- Client.execute(query_params) do
-      result = Mapper.to_repository_listing(response.body)
-
+         {:ok, response} <- Client.execute(query_params),
+         {:ok, result} <- Mapper.to_repository_listing(response.body) do
       {:ok, result}
     end
   end

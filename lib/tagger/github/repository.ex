@@ -1,6 +1,6 @@
-defmodule Tagger.SourceControl.Repository do
+defmodule Tagger.Github.Repository do
   @moduledoc """
-  Represents a repository in a external Source Control service.
+  Represents a Repository on GitHub
   """
 
   use Ecto.Schema
@@ -10,9 +10,9 @@ defmodule Tagger.SourceControl.Repository do
   @required_fields [:id, :name, :description, :url, :languages]
   @fields @required_fields
 
-  @primary_key {:id, :string, autogenerate: false}
-  @foreign_key_type :string
-  schema "repositories" do
+  @primary_key false
+  embedded_schema  do
+    field :id, :string
     field :description, :string
     field :languages, {:array, :string}
     field :name, :string
@@ -21,8 +21,7 @@ defmodule Tagger.SourceControl.Repository do
     timestamps()
   end
 
-  @doc false
-  def changeset(repository, attrs) do
+  def changeset(repository \\ %__MODULE__{}, attrs) do
     repository
     |> cast(attrs, @fields)
     |> validate_required(@required_fields)

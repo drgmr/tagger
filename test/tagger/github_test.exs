@@ -4,26 +4,7 @@ defmodule Tagger.GithubTest do
   alias Tagger.Github
 
   import Tesla.Mock
-
-  @expected_language "Swift"
-
-  @example_repository %{
-    "description" => "Another Repo",
-    "id" => "ANOTHER_ID",
-    "languages" => %{"nodes" => [%{"name" => @expected_language}]},
-    "name" => "CoolLib",
-    "url" => "https://github.com/another_user/cool_lib"
-  }
-
-  @sample_response %{
-    "data" => %{
-      "user" => %{
-        "starredRepositories" => %{
-          "nodes" => [@example_repository]
-        }
-      }
-    }
-  }
+  import Tagger.Factory
 
   @username "drgmr"
 
@@ -32,18 +13,16 @@ defmodule Tagger.GithubTest do
       mock(fn %{method: :post, body: body} ->
         assert body =~ @username
 
-        json(@sample_response)
+        :example_response
+        |> build()
+        |> json()
       end)
 
-      assert {:ok, repositories} = Github.get_starred_repositories(@username)
+      expected_result = build(:example_repository)
 
-      assert [repository] = repositories
+      assert {:ok, [repository]} = Github.get_starred_repositories(@username)
 
-      for field <- ["id", "name", "url", "description"] do
-        assert repository[field] == @example_repository[field]
-      end
-
-      assert repository["languages"] == [@expected_language]
+      assert repository == expected_result
     end
   end
 end

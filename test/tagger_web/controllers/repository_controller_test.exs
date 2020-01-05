@@ -48,7 +48,6 @@ defmodule TaggerWeb.RepositoryControllerTest do
       conn =
         conn
         |> get(path)
-        |> save(title: "Browsing starred repositories")
 
       assert [response] = json_response(conn, :ok)
 

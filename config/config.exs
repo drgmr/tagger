@@ -18,9 +18,4 @@ config :phoenix, :json_library, Jason
 
 config :tesla, adapter: Tesla.Adapter.Hackney
 
-config :blue_bird,
-  docs_path: "priv/static/docs",
-  theme: "triple",
-  router: TaggerWeb.Router
-
 import_config "#{Mix.env()}.exs"

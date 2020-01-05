@@ -23,8 +23,6 @@ defmodule TaggerWeb.ConnCase do
     quote do
       use Phoenix.ConnTest
 
-      import BlueBird.ConnLogger
-
       alias TaggerWeb.Router.Helpers, as: Routes
 
       @endpoint TaggerWeb.Endpoint

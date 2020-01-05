@@ -1,3 +1,2 @@
-BlueBird.start()
-ExUnit.start(formatters: [ExUnit.CLIFormatter, BlueBird.Formatter])
+ExUnit.start()
 Ecto.Adapters.SQL.Sandbox.mode(Tagger.Repo, :manual)

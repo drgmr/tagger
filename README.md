@@ -37,6 +37,8 @@ Direct access for usage with your preffered tools will be available on:
 - Server app's endpoint: `localhost:4000`
 - Database server: `localhost:5678`
 
+API documentation will be available at `/opt/app/doc/swagger.json` after compiling the project.
+
 ## Known limitations and possible improvements
 
 - The routes for browsing starred respositories are not obvious from a simple route listing - the documentation is necessary for an user to discover that

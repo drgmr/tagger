@@ -46,8 +46,6 @@ defmodule Tagger.Categorization do
     Map.put(repository, :tags, tags)
   end
 
-  # defp recommendations_for_repository(repository), do: nil
-
   defp find_all_tags(repository_id) do
     import Ecto.Query
 

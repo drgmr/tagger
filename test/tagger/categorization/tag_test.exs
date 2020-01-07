@@ -26,9 +26,9 @@ defmodule Tagger.Categorization.TagTest do
       refute changeset.valid?
 
       assert errors_on(changeset) == %{
-        name: ["can't be blank"],
-        repository_id: ["can't be blank"]
-      }
+               name: ["can't be blank"],
+               repository_id: ["can't be blank"]
+             }
     end
 
     test "creates a new changeset when provided valid data" do

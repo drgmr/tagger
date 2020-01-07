@@ -25,6 +25,8 @@ defmodule TaggerWeb.ConnCase do
 
       alias TaggerWeb.Router.Helpers, as: Routes
 
+      import Tagger.Factory
+
       @endpoint TaggerWeb.Endpoint
     end
   end

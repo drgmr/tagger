@@ -1,5 +1,5 @@
 defmodule Tagger.Github.ClientTest do
-  use ExUnit.Case
+  use Tagger.DataCase
 
   alias Tagger.Github.Client
 

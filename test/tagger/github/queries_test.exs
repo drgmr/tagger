@@ -1,5 +1,5 @@
 defmodule Tagger.Github.QueriesTest do
-  use ExUnit.Case
+  use Tagger.DataCase
 
   alias Tagger.Github.Queries
 

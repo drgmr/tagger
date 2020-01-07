@@ -3,26 +3,47 @@ defmodule Tagger.Categorization do
   Manages Tag collections related to external repositories.
   """
 
-  # def store_categorization(repository_id, tags), do: nil
+  alias Tagger.Repo
+  alias Tagger.Categorization.Tag
+
+  def store_categorization(repository_id, tags_params) do
+    Repo.transaction(fn ->
+      tags_params
+      |> Enum.map(&cast_to_tag(&1, repository_id))
+      |> Enum.map(&Repo.insert/1)
+      |> Enum.map(fn
+        {:ok, item} -> item
+        {:error, reason} -> Repo.rollback(reason)
+      end)
+    end)
+  end
+
+  defp cast_to_tag(tag_params, repository_id) do
+    tag_params
+    |> Map.put("repository_id", repository_id)
+    |> Tag.changeset()
+  end
 
   # def find_matching_categorizations(partial_name), do: nil
 
   def evaluate_repositories(repositories),
-    do: Enum.reduce_while(repositories, {:ok, []}, &evaluate_repository/2)
+    do: Enum.map(repositories, &evaluate_repository/1)
 
-  defp evaluate_repository(repository, {:ok, list}) do
-    case find_all_tags(repository.id) do
-      {:ok, tags} ->
-        item = Map.put(repository, :tags, tags)
+  defp evaluate_repository(repository) do
+    tags = find_all_tags(repository.id)
 
-        {:cont, {:ok, [item | list]}}
-
-      {:error, _reason} = result ->
-        {:halt, result}
-    end
+    Map.put(repository, :tags, tags)
   end
 
   # defp recommendations_for_repository(repository), do: nil
 
-  defp find_all_tags(_repository_id), do: {:ok, []}
+  defp find_all_tags(repository_id) do
+    import Ecto.Query
+
+    query =
+      from tag in Tag,
+        where: tag.repository_id == ^repository_id
+
+    Repo.all(query)
+  end
 end

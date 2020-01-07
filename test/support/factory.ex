@@ -1,20 +1,16 @@
 defmodule Tagger.Factory do
   @moduledoc false
 
-  use ExMachina
+  use ExMachina.Ecto,
+    repo: Tagger.Repo
 
   alias Tagger.{Categorization.Tag, Github.Repository}
 
   def tag_factory do
     %Tag{
       name: sequence(:tag_name, &"tag-#{&1}"),
-      repository_id: build(:repository_id)
+      repository_id: sequence(:repository_id, &"repository-#{&1}")
     }
-  end
-
-  def repository_id_factory do
-    Ecto.UUID.generate()
-    |> Base.encode64()
   end
 
   def example_response_factory do
@@ -25,7 +21,7 @@ defmodule Tagger.Factory do
             "nodes" => [
               %{
                 "id" => "SOME_ID",
-                "name" => "Some Repo",
+                "name" => "SomeRepo",
                 "url" => "https://github.com/some_user/some-repo",
                 "description" => "It's a cool Repo.",
                 "languages" => %{
@@ -46,10 +42,28 @@ defmodule Tagger.Factory do
   def example_repository_factory do
     %Repository{
       id: "SOME_ID",
-      name: "Some Repo",
+      name: "SomeRepo",
       url: "https://github.com/some_user/some-repo",
       description: "It's a cool Repo.",
       languages: ["Purescript"]
+    }
+  end
+
+  def repository_with_tags_factory do
+    repository_id = "ANOTHER_ID"
+
+    tags = [
+      build(:tag, repository_id: repository_id),
+      build(:tag, repository_id: repository_id)
+    ]
+
+    %{
+      id: "ANOTHER_ID",
+      name: "another-repo",
+      url: "https://github.com/some_user/another-another",
+      description: "More Repos.",
+      languages: ["Elixir"],
+      tags: tags
     }
   end
 end

@@ -39,10 +39,8 @@ Direct access for usage with your preffered tools will be available on:
 
 ## Known limitations and possible improvements
 
-- The process of ensuring a local copy of a repository is up to date checks the database multiple times - we could use some form of batching for those queries
 - The routes for browsing starred respositories are not obvious from a simple route listing - the documentation is necessary for an user to discover that
 - There's no access control or user management
 - A deployment process is not yet completely set up. Ideally a release would use the running environment's configuration to access external resources (DNS for database access, runtime environment variables for secrets, etc)
 - There's no paging support in place for browsing repositories yet
 - Error handling is not ideal at the Web API level. This still needs a better mapping of possible errors with proper specs - then the fallback controller should be able to handle with more precision each error case.
-- There's some slight duplication of code - building better testing facilities would fix that.

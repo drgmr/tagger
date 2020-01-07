@@ -23,11 +23,12 @@ defmodule Tagger.Categorization.Tag do
     timestamps()
   end
 
-  def changeset(tag, changes) do
+  def changeset(tag \\ %__MODULE__{}, changes) do
     tag
     |> cast(changes, @fields)
     |> validate_required(@required_fields)
     |> apply_name_normalization()
+    |> unique_constraint(:name, name: :tags_pkey)
   end
 
   defp apply_name_normalization(%Changeset{valid?: true} = changeset) do

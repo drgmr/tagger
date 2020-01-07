@@ -11,7 +11,7 @@ defmodule Tagger.Github.Repository do
   @fields @required_fields
 
   @primary_key false
-  embedded_schema  do
+  embedded_schema do
     field :id, :string
     field :description, :string
     field :languages, {:array, :string}

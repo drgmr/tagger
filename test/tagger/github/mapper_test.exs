@@ -1,7 +1,5 @@
 defmodule Tagger.Github.MapperTest do
-  use ExUnit.Case
-
-  import Tagger.Factory
+  use Tagger.DataCase
 
   alias Tagger.Github.Mapper
 

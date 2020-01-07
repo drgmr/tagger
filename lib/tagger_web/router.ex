@@ -20,6 +20,7 @@ defmodule TaggerWeb.Router do
 
     scope "/repositories" do
       resources "/", RepositoryController, only: [:index]
+      resources "/:id/tags", TagController, only: [:create]
     end
   end
 end

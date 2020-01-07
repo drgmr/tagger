@@ -1,10 +1,9 @@
 defmodule Tagger.GithubTest do
-  use ExUnit.Case
+  use Tagger.DataCase
 
   alias Tagger.Github
 
   import Tesla.Mock
-  import Tagger.Factory
 
   @username "drgmr"
 

@@ -6,6 +6,9 @@ defmodule Tagger.Categorization do
   alias Tagger.Categorization.Tag
   alias Tagger.Repo
 
+  @whitespace_matcher ~r/\s+/
+  @whitespace_replacement "-"
+
   def store_categorization(repository_id, tags_params) do
     Repo.transaction(fn ->
       tags_params
@@ -53,5 +56,12 @@ defmodule Tagger.Categorization do
         where: tag.repository_id == ^repository_id
 
     Repo.all(query)
+  end
+
+  def normalize_tag_name(name) do
+    name
+    |> String.downcase()
+    |> String.trim()
+    |> String.replace(@whitespace_matcher, @whitespace_replacement)
   end
 end

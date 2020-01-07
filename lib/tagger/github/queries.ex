@@ -12,6 +12,9 @@ defmodule Tagger.Github.Queries do
             name
             description
             url
+            primaryLanguage {
+              name
+            }
             languages(first: 10) {
               nodes {
                 name
@@ -31,6 +34,9 @@ defmodule Tagger.Github.Queries do
           name
           description
           url
+          primaryLanguage {
+            name
+          }
           languages(first: 10) {
             nodes {
               name

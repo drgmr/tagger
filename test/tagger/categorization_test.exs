@@ -109,5 +109,14 @@ defmodule Tagger.CategorizationTest do
     end
   end
 
+  describe "normalize_name/1" do
+    @example_name "Some Tag"
+    @normalized_name "some-tag"
+
+    test "it normalizes a irregular tag name" do
+      assert @normalized_name == Categorization.normalize_tag_name(@example_name)
+    end
+  end
+
   defp take_names(tags), do: Enum.map(tags, & &1.name)
 end

@@ -6,11 +6,9 @@ defmodule Tagger.Categorization.Tag do
   use Ecto.Schema
 
   alias Ecto.Changeset
+  alias Tagger.Categorization
 
   import Ecto.Changeset
-
-  @whitespace_matcher ~r/\s+/
-  @whitespace_replacement "-"
 
   @required_fields [:name, :repository_id]
   @fields @required_fields
@@ -33,17 +31,15 @@ defmodule Tagger.Categorization.Tag do
 
   defp apply_name_normalization(%Changeset{valid?: true} = changeset) do
     case get_change(changeset, :name) do
-      nil -> changeset
-      name -> put_change(changeset, :name, normalize_name(name))
+      nil ->
+        changeset
+
+      name ->
+        new_name = Categorization.normalize_tag_name(name)
+
+        put_change(changeset, :name, new_name)
     end
   end
 
   defp apply_name_normalization(changeset), do: changeset
-
-  defp normalize_name(name) do
-    name
-    |> String.downcase()
-    |> String.trim()
-    |> String.replace(@whitespace_matcher, @whitespace_replacement)
-  end
 end

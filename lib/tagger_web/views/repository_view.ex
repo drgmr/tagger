@@ -13,7 +13,8 @@ defmodule TaggerWeb.RepositoryView do
       :id,
       :name,
       :description,
-      :languages,
+      :language,
+      :recommended_tags,
       :url
     ])
     |> Map.put(

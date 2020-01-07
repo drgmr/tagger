@@ -24,10 +24,16 @@ defmodule Tagger.Factory do
                 "name" => "SomeRepo",
                 "url" => "https://github.com/some_user/SomeRepo",
                 "description" => "It's a cool Repo.",
+                "primaryLanguage" => %{
+                  "name" => "Purescript"
+                },
                 "languages" => %{
                   "nodes" => [
                     %{
                       "name" => "Purescript"
+                    },
+                    %{
+                      "name" => "HTML"
                     }
                   ]
                 }
@@ -48,10 +54,16 @@ defmodule Tagger.Factory do
             "name" => "SomeRepo",
             "description" => "It's a cool Repo.",
             "url" => "https://github.com/some_user/SomeRepo",
+            "primaryLanguage" => %{
+              "name" => "Purescript"
+            },
             "languages" => %{
               "nodes" => [
                 %{
-                  "name" => "Purescript"
+                  "name" => "Purescript",
+                },
+                %{
+                  "name" => "HTML"
                 }
               ]
             }
@@ -61,6 +73,9 @@ defmodule Tagger.Factory do
             "name" => "another-repo",
             "description" => "More Repos.",
             "url" => "https://github.com/some_user/another-repo",
+            "primaryLanguage" => %{
+              "name" => "Elixir"
+            },
             "languages" => %{
               "nodes" => [
                 %{
@@ -97,7 +112,8 @@ defmodule Tagger.Factory do
       name: "SomeRepo",
       url: "https://github.com/some_user/SomeRepo",
       description: "It's a cool Repo.",
-      languages: ["Purescript"]
+      language: "Purescript",
+      recommended_tags: ["purescript", "html"]
     }
   end
 
@@ -114,7 +130,8 @@ defmodule Tagger.Factory do
       name: "another-repo",
       url: "https://github.com/some_user/another-another",
       description: "More Repos.",
-      languages: ["Elixir"],
+      language: "Elixir",
+      recommended_tags: ["elixir", "dockerfile"],
       tags: tags
     }
   end

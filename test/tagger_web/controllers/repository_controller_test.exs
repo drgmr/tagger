@@ -3,18 +3,21 @@ defmodule TaggerWeb.RepositoryControllerTest do
 
   import Tesla.Mock
 
+  @language_name "Rust"
+
   @expected_result %{
     "id" => "OTHER_ID",
     "name" => "Other Repo",
     "url" => "https://github.com/some_user/other-repo",
     "description" => "Another a cool Repo.",
-    "languages" => ["Rust"]
+    "language" => @language_name,
+    "recommended_tags" =>  ["rust"]
   }
 
   @languages_data %{
     "nodes" => [
       %{
-        "name" => "Rust"
+        "name" => @language_name
       }
     ]
   }
@@ -25,8 +28,10 @@ defmodule TaggerWeb.RepositoryControllerTest do
         "starredRepositories" => %{
           "nodes" => [
             @expected_result
-            |> Map.drop(["languages"])
+            |> Map.drop(["recommended_tags"])
             |> Map.put("languages", @languages_data)
+            |> Map.drop(["language"])
+            |> Map.put("primaryLanguage", %{"name" => @language_name})
           ]
         }
       }

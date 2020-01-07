@@ -6,8 +6,8 @@ defmodule Tagger.Github.Mapper do
 
   alias Tagger.Github.Repository
 
-  def to_repository_listing(starred_repositories_response) do
-    starred_repositories_response
+  def to_repository_listing(response) do
+    response
     |> Map.get("data")
     |> get_nodes()
     |> Enum.map(&to_repository_params/1)
@@ -28,12 +28,16 @@ defmodule Tagger.Github.Mapper do
   defp to_repository_params(data) do
     base_map = Map.take(data, ["id", "name", "url", "description"])
 
+    primary_language = get_in(data, ["primaryLanguage", "name"])
+
     languages =
       data
       |> get_in(["languages", "nodes"])
       |> Enum.map(&Map.get(&1, "name"))
 
-    Map.put(base_map, "languages", languages)
+    base_map
+    |> Map.put("recommended_tags", languages)
+    |> Map.put("language", primary_language)
   end
 
   defp cast_to_repository(params, {:ok, list}) do

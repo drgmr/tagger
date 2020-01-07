@@ -14,9 +14,10 @@ defmodule Tagger do
   end
 
   def get_repositories_by_tag(partial_name) do
-    with tags = Categorization.find_matching(partial_name),
-         repositories_ids = Enum.map(tags, & &1.repository_id),
-         {:ok, repositories} <- Github.get_repositories_by_id(repositories_ids) do
+    tags = Categorization.find_matching(partial_name)
+    repositories_ids = Enum.map(tags, & &1.repository_id)
+
+    with {:ok, repositories} <- Github.get_repositories_by_id(repositories_ids) do
       repositories = Categorization.evaluate_repositories(repositories)
 
       {:ok, repositories}

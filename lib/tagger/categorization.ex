@@ -3,8 +3,8 @@ defmodule Tagger.Categorization do
   Manages Tag collections related to external repositories.
   """
 
-  alias Tagger.Repo
   alias Tagger.Categorization.Tag
+  alias Tagger.Repo
 
   def store_categorization(repository_id, tags_params) do
     Repo.transaction(fn ->

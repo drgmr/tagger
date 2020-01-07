@@ -40,13 +40,22 @@ defmodule TaggerWeb.RepositoryController do
     get("/repositories")
     summary("Lists a GitHub user's starred repositories")
     description("Using GitHub's API, lists the starred repositories of a given user.")
-    parameter(:username, :query, :string, "GitHub username", required: true)
+    parameter(:username, :query, :string, "GitHub username")
+    parameter(:filter, :query, :string, "Filter by tags")
     response(200, "Repositories", :Repositories)
     tag("repository")
   end
 
   def index(conn, %{"username" => username}) do
     with {:ok, repositories} <- Tagger.get_starred_repositories(username) do
+      conn
+      |> put_status(:ok)
+      |> render(%{repositories: repositories})
+    end
+  end
+
+  def index(conn, %{"filter" => filter}) do
+    with {:ok, repositories} <- Tagger.get_repositories_by_tag(filter) do
       conn
       |> put_status(:ok)
       |> render(%{repositories: repositories})

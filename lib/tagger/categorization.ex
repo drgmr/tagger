@@ -24,7 +24,15 @@ defmodule Tagger.Categorization do
     |> Tag.changeset()
   end
 
-  # def find_matching_categorizations(partial_name), do: nil
+  def find_matching(partial_name) do
+    import Ecto.Query
+
+    query =
+      from tag in Tag,
+        where: ilike(tag.name, ^"#{partial_name}%")
+
+    Repo.all(query)
+  end
 
   def evaluate_repositories(repositories),
     do: Enum.map(repositories, &evaluate_repository/1)

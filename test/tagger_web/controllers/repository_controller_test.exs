@@ -19,7 +19,7 @@ defmodule TaggerWeb.RepositoryControllerTest do
     ]
   }
 
-  @example_response %{
+  @example_stars_response %{
     "data" => %{
       "user" => %{
         "starredRepositories" => %{
@@ -40,20 +40,41 @@ defmodule TaggerWeb.RepositoryControllerTest do
       mock(fn %{method: :post, body: body} ->
         assert body =~ @username
 
-        json(@example_response)
+        json(@example_stars_response)
       end)
 
       path = Routes.repository_path(conn, :index, %{"username" => @username})
 
-      conn =
-        conn
-        |> get(path)
+      conn = get(conn, path)
 
       assert [response] = json_response(conn, :ok)
 
       for field <- ["id", "name", "url", "description", "languages"] do
         assert response[field] == @expected_result[field]
       end
+    end
+
+    @search_query "something"
+
+    test "it supports searching for known repositories by tag", %{conn: conn} do
+      mock(fn %{method: :post, body: body} ->
+        assert body =~ "ids"
+
+        :example_search_response
+        |> build()
+        |> json()
+      end)
+
+      insert(:tag, name: "something", repository_id: "SOME_ID")
+      insert(:tag, name: "something-else", repository_id: "ANOTHER_ID")
+
+      path = Routes.repository_path(conn, :index, %{"filter" => @search_query})
+
+      conn = get(conn, path)
+
+      assert response = json_response(conn, :ok)
+
+      assert Enum.count(response) == 2
     end
   end
 end

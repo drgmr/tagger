@@ -91,5 +91,23 @@ defmodule Tagger.CategorizationTest do
     end
   end
 
+  describe "find_matching/1" do
+    test "it finds all matching tags" do
+      first_tag = insert(:tag, name: "something")
+      second_tag = insert(:tag, name: "some-other-thing")
+
+      insert(:tag, name: "different-stuff")
+
+      assert results = Categorization.find_matching("some")
+
+      assert Enum.count(results) == 2
+
+      names = take_names(results)
+
+      assert first_tag.name in names
+      assert second_tag.name in names
+    end
+  end
+
   defp take_names(tags), do: Enum.map(tags, & &1.name)
 end

@@ -9,12 +9,21 @@ defmodule Tagger.Github.Mapper do
   def to_repository_listing(starred_repositories_response) do
     starred_repositories_response
     |> Map.get("data")
-    |> Map.get("user")
-    |> Map.get("starredRepositories")
-    |> Map.get("nodes")
+    |> get_nodes()
     |> Enum.map(&to_repository_params/1)
+    |> Enum.reject(&is_nil/1)
     |> Enum.reduce_while({:ok, []}, &cast_to_repository/2)
   end
+
+  defp get_nodes(%{"user" => user}) do
+    user
+    |> Map.get("starredRepositories")
+    |> Map.get("nodes")
+  end
+
+  defp get_nodes(%{"nodes" => nodes}), do: nodes
+
+  defp to_repository_params(nil), do: nil
 
   defp to_repository_params(data) do
     base_map = Map.take(data, ["id", "name", "url", "description"])
